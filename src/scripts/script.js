@@ -43,6 +43,29 @@ function startShufflingAnimation() {
   letter.innerHTML = letters[randomLetter];
 }
 
-function stopShuffling(parametro) {
-  clearTimeout(parametro);
+function stopShuffling(time) {
+  clearTimeout(time);
+}
+
+//SERVICE WORKER
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js").then(registration => {
+    registration.addEventListener("updatefound", () => {
+      newWorker = registration.installing;
+      newWorker.addEventListener("statechange", () => {
+        switch (newWorker.state) {
+          case "installed":
+            if (navigator.serviceWorker.controller) {
+              showUpdateBar()
+            }
+            break;
+        }
+      })
+    })
+    console.log("Service worker registered!")
+    console.log(registration)
+  }).catch(error => {
+    console.log("Registration failed!")
+    console.log(error)
+  })
 }
