@@ -39,7 +39,6 @@ shuffleBtn.addEventListener("click", () => {
 
 function startShufflingAnimation() {
   let randomLetter = Math.floor(Math.random() * 26);
-  console.log(randomLetter);
   letter.innerHTML = letters[randomLetter];
 }
 
